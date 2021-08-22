@@ -21,10 +21,12 @@ def main():
             staticMacinterface.append(mac["interface"])
         for interface in interfaceUp:
             if interface not in staticMacinterface:
-                macTableinterface = api.runCmds(1, ["show mac address-table interface " + interface],"json" )[0]["unicastTable"]["tableEntries"][0]
-                vlan = macTableinterface["vlanId"]
-                mac = macTableinterface["macAddress"]
-                api.runCmds(1, ["configure", "mac address-table static " + mac + " vlan " + str(vlan) + " interface " + interface])
+                showMacinterface = api.runCmds(1, ["show mac address-table interface " + interface],"json" )[0]["unicastTable"]["tableEntries"]
+                if showMacinterface != []:
+                    macTableinterface = showMacinterface[0]
+                    vlan = macTableinterface["vlanId"]
+                    mac = macTableinterface["macAddress"]
+                    api.runCmds(1, ["configure", "mac address-table static " + mac + " vlan " + str(vlan) + " interface " + interface])
 if __name__ == "__main__":
     main()
 
