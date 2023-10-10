@@ -42,7 +42,7 @@ if __name__ == "__main__":
 event-handler sticky
    trigger on-intf Ethernet1-48 operstatus
    delay 5
-   action bash python /mnt/flash/sticky.py
+   action bash python3 /mnt/flash/sticky.py
    repeat interval 5
 
 management api http-commands
